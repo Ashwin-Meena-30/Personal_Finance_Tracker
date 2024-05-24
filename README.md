@@ -36,13 +36,13 @@ This project is organized into several main directories:
 #### 1. Clone the repository:
 
 ```
-git clone https://your-repository-url/personal-finance-tracker.git
+git clone https://github.com/Ashwin-Meena-30/Personal_Finance_Tracker.git
 ```
 
 #### 2.Navigate to the project directory:
 
 ```
-cd personal-finance-tracker
+cd Personal_Finance_Tracker
 ```
 
 #### Backend
@@ -50,9 +50,12 @@ cd personal-finance-tracker
 #### 3. Set up the backend:
 
 ```
-cd backend
+cd personal-finance-tracker
 npm install
-npm start
+Add .env file as shown in personal-finance-tracker README.md
+npm install sequelize sequelize-cli pg pg-hstore
+when successfully created the env file run command  ` npx sequelize-cli db:migrate` for create migration.
+node server.js
 ```
 
 #### Frontend
@@ -60,7 +63,7 @@ npm start
 #### 4. Set up the frontend:
 
 ```
-cd ../frontend
+cd ../personal-finance-tracker-frontend
 npm install
 npm start
 ```
