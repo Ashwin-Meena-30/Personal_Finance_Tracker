@@ -60,7 +60,12 @@ personal-finance-tracker/
 
 Set environment variables to configure the application:
 
-- `DATABASE_URL` - Connection string for the PostgreSQL database.
+- `PORT` - Connection port.
+- `DB_USERNAME` - User name of db.
+- `DB_PASSWORD` - Password of db.
+- `DB_NAME` - Name of db.
+- `DB_HOST` - Host of db.
+- `DB_DIALECT` - Type of database 'postgres'.
 - `JWT_SECRET` - Secret key for signing JSON Web Tokens.
 
 Create a `.env` file in the root directory and populate it with your configurations:
