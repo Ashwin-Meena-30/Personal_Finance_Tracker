@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext"; // Ensure this path is correct
 import "./RecordForm.css"; // Ensure this path is correct
+import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
 
 function RecordForm({ record, setEditing }) {
   const [type, setType] = useState(record ? record.type : "");
@@ -9,6 +12,7 @@ function RecordForm({ record, setEditing }) {
   const [description, setDescription] = useState(
     record ? record.description : ""
   );
+  const navigate = useNavigate();
   const { auth } = useAuth();
 
   const handleSubmit = async (event) => {
@@ -19,20 +23,14 @@ function RecordForm({ record, setEditing }) {
     const body = { type, amount, description };
 
     try {
-      if (record) {
-        await axios.put(
-          `http://localhost:3000/financial-records/${record.id}`,
-          body,
-          config
-        );
-      } else {
         await axios.post(
           "http://localhost:3000/financial-records",
           body,
           config
         );
-      }
-      setEditing(false);
+        navigate("/dashboard");
+       
+      
     } catch (error) {
       console.error("Failed to save the record:", error);
     }
