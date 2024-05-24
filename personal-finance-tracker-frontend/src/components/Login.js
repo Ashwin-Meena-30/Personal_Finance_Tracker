@@ -4,6 +4,7 @@ import { useAuth } from "../AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
+import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -25,14 +26,34 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Check if email or password fields are empty
     if (!email.trim() || !password.trim()) {
-      setShowError(true); // Set error state to true
-      toast.error("Please enter both email and password.");
-      return;
+      toast.error("Please enter both email and password."); // Inform user to fill both fields
+      return; // Stop the function if any field is empty
     }
 
-    setShowError(false); // Reset error state on successful validation
-    // Proceed with existing login logic...
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", response.data.token); // Save token to localStorage
+      localStorage.setItem("user", email); // Save user email to localStorage
+      setAuth({
+        token: response.data.token,
+        user: email,
+      });
+      toast.success("Login successful!");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 800); // Delay to show success message
+    } catch (error) {
+      const errorMessage = error.response
+        ? error.response.data.error
+        : "Login failed. No response from server";
+      toast.error(errorMessage);
+      console.error("Login failed:", errorMessage);
+    }
   };
 
   return (
