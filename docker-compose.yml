@@ -1,0 +1,47 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Hrhk@4321
+      POSTGRES_DB: test_db1
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432" # Map host port 5434 to container port 5432
+
+  backend:
+    build: ./personal-finance-tracker
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres # Use the service name as the host
+      - DB_USER=postgres
+      - DB_PASS=Hrhk@4321
+      - DB_NAME=test_db1
+      - DB_DIALECT=postgres
+      - DB_PORT=5432 # Add this line to specify the port
+      - PORT=3000
+      - JWT_SECRET=your_secret_key
+    volumes:
+      - ./personal-finance-tracker:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./personal-finance-tracker-frontend
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./personal-finance-tracker-frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres-data:
