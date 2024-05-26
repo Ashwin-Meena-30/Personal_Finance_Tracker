@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  backend:
+    build: ./personal-finance-tracker
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./personal-finance-tracker:/usr/src/app # Mount the host code into the container
+      - /usr/src/app/node_modules # Use node_modules from inside the container
+
+  frontend:
+    build: ./personal-finance-tracker-frontend
+    ports:
+      - "3001:3000" # Maps port 3000 of the container to port 3001 on the host to avoid conflicts with the backend
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=development # Ensures that the React development server is used
+    volumes:
+      - ./personal-finance-tracker-frontend:/app # Mount the host code into the container
+      - /app/node_modules # Use node_modules from inside the container
