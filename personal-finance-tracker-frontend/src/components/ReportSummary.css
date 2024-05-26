@@ -1,0 +1,47 @@
+.report-container {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.report-heading {
+    color: #343a40;
+    margin-bottom: 15px;
+}
+
+.report-line {
+    font-size: 16px;
+    color: #495057;
+    margin: 5px 0;
+}
+
+/* Colors for income, expenses, and balance */
+.income {
+    color: #28a745; /* green */
+}
+
+.expenses {
+    color: #dc3545; /* red */
+}
+
+.net-balance {
+    color: #007bff; /* blue */
+    font-weight: bold;
+}
+
+.download-button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .download-button:hover {
+    background-color: #45a049;
+  }
+  
